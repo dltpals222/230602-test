@@ -4,12 +4,12 @@ const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const WorkboxWebpackPlugin = require("workbox-webpack-plugin");
 
-const isProduction = process.env.NODE_ENV == "production";
+const isProduction = process.env.NODE_ENV === "production";
 
 const stylesHandler = "style-loader";
 
 const config = {
-  entry: "./src/index.tsx",
+  entry: "./src/index.js",
   output: {
     path: path.resolve(__dirname, "dist"),
   },
@@ -29,7 +29,12 @@ const config = {
     rules: [
       {
         test: /\.(ts|tsx)$/i,
-        loader: "ts-loader",
+        loader: "babel-loader",
+        exclude: ["/node_modules/"],
+      },
+      {
+        test: /\.(js|jsx)$/i,
+        loader: "babel-loader",
         exclude: ["/node_modules/"],
       },
       {
